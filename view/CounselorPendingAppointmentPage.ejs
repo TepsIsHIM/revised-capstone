@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Pending Appointments</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/dlsud-logo.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/counselor-pendingappointment-page.css" rel="stylesheet">
+
+  <script src="/js/logout.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <% if (!counselorData) { %>   <script>window.location.href = "/";</script><% } %>
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-person"></i>Welcome, Counselor <%= counselorData.last_name %> <%= counselorData.first_name %>
+      </div>
+      <div class="social-links d-none d-md-block">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bi bi-facebook"></i></a>
+        <% if (counselorData.admin) { %>
+          <a href="/adminHomePage" id="admin-link">Admin Page</a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <div class="shadow p-3 mb-5 bg-body rounded">
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="/CounselorHomePage">DLSU-D Student Wellness Center</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorProfilePage">Account Details</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Appointments</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li>
+                <a href="/CounselorPendingAppointmentPage">Pending Appointment</a>
+              </li>
+              <li><a href="/CounselorAppointmentHistoryPage">Appointment History</a></li>
+              <li><a href="/CounselorAcceptedAppointmentPage">Accepted Appointments</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Documentation</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorLogs">Logs</a></li>
+              <li><a href="/CounselorReport">Report</a></li>
+              <li><a href="/CounselorManualReport">Manual Report</a></li>
+            </ul>
+          </li>
+          <li><a id="logout" class="getstarted scrollto" href="javascript:;">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+    <div class="table-responsive">
+        <table class="table border border-2 table-hover" id="pendingAppointmentsTable">
+            <thead style="background-color: #28a745; color: white;">
+                <tr>
+                    <th scope="col">Time</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Program Code</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">Appointed Time</th>
+                    <th scope="col">Appointed Date</th>
+                    <th scope="col">Accept</th>
+                    <th scope="col">Reject</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pendingAppointments.forEach((appointment) => { %>
+                <tr>
+                    <td><%= appointment.time %></td>
+                    <td><%= appointment.date %></td>
+                    <td><%= appointment.email %></td>
+                    <td><%= appointment.last_name %></td>
+                    <td><%= appointment.first_name %></td>
+                    <td><%= appointment.department %></td>
+                    <td><%= appointment.progCode %></td>
+                    <td><%= appointment.notes %></td>
+                    <td><%= appointment.appointed_time %></td>
+                    <td><%= appointment.appointed_date %></td>
+                    <td>
+                        <button class="btn btn-outline-success accept-appointment" data-toggle="modal"
+                            data-target="#acceptModal" data-appointment-id="<%= appointment.id %>">Accept</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-danger reject-appointment" data-toggle="modal"
+                            data-target="#rejectModal" data-appointment-id="<%= appointment.id %>">Reject</button>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Student Wellness Center</h3>
+      <p>Create possibilities with DLSU-D.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bx bxl-facebook"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Alvaran, Dimaya, Manalo</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+<!-- Add these lines to include Bootstrap and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <!-- Template Main JS File -->
+  <script src="/js/home-page.js"></script>
+  <script src="/js/acceptingAppointment.js"></script>
+  <script src="/js/rejectingAppointment.js"></script>
+
+
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1; /* This makes the main content take up the remaining vertical space */
+    }
+
+    /* If needed, adjust the footer styles below */
+    #footer {
+      padding: 30px 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Style for both cancel and "X" buttons */
+.close-modal-btn {
+  background-color: #6c757d; /* Set your desired background color */
+  color: #fff; /* Set your desired text color */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.close-modal-btn:hover {
+  background-color: #5a6268; /* Change background color on hover */
+}
+  </style>
+  <!--reject modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="rejectModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rejectModalLabel">Reject Appointment</h5>
+
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" id="closeModalX" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Enter your remarks:</p>
+        <textarea class="form-control" id="modalRemarkInput2" placeholder="Remarks"rows="3"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-label="Close" id="closeModalBtn">
+          Close
+        </button>
+        <button type="button" class="btn btn-danger confirm-reject" data-dismiss="modal">Confirm Reject</button>
+        <button class="btn btn-outline-success reschedule-appointment" data-toggle="modal" data-target="#rescheduleModal" >Reschedule</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- accept modal -->
+  <div class="modal fade" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="acceptModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="acceptModalLabel">Accept Appointment</h5>
+          <button type="button" class="close close-modal-btn" data-dismiss="modal" id="closeModalX2" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Enter your remarks:</p>
+          <textarea class="form-control" id="modalRemarkInput1" placeholder="Remarks"rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-label="Close" id="closeModalBtn2">
+            Close
+          </button>
+          <button type="button" class="btn btn-success confirm-accept" data-dismiss="modal">Confirm Accept</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="loader"></div>
+
+  <!-- Reschedule Modal -->
+ <div class="modal fade" id="reschedModal" tabindex="-1" role="dialog" aria-labelledby="reschedModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reschedModalLabel">Reschedule Appointment</h5>
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" id="closeModalX3" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="rescheduleDate" class="form-label">Date</label>
+          <input type="date" class="form-control" id="rescheduleDate" required>
+        </div>
+        <div class="mb-3">
+          <label for="rescheduleTime" class="form-label">Time</label>
+          <input type="time" class="form-control" id="rescheduleTime" required>
+        </div>
+        <div class="mb-3">
+          <label for="rescheduleNotes" class="form-label">Notes</label>
+          <textarea class="form-control" id="rescheduleNotes" rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-label="Close" id="closeModalBtn3">
+            Close
+          </button>
+        </button>
+        <button type="button" class="btn btn-success confirm-reschedule" data-dismiss="modal">Confirm Reschedule</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="loader"></div>
+</body>
+</html>
