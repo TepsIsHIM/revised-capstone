@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>View Report</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/dlsud-logo.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/counselorLog.css" rel="stylesheet">
+  <link href="/css/spinner.css" rel="stylesheet">
+
+  <script src="/js/logout.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <% if (!counselorData) { %>   <script>window.location.href = "/";</script><% } %>
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-person"></i>Welcome, Counselor <%= counselorData.last_name %> <%= counselorData.first_name %>
+      </div>
+      <div class="social-links d-none d-md-block">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bi bi-facebook"></i></a>
+        <% if (counselorData.admin) { %>
+          <a href="/adminHomePage" id="admin-link">Admin Page</a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <div class="shadow p-3 mb-5 bg-body rounded">
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="/CounselorHomePage">DLSU-D Student Wellness Center</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorProfilePage">Account Details</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Appointments</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorPendingAppointmentPage">Pending Appointments</a></li>
+              <li><a href="/CounselorAppointmentHistoryPage">Appointment History</a></li>
+              <li><a href="/CounselorAcceptedAppointmentPage">Accepted Appointments</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Documentation</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorLogs">Logs</a></li>
+              <li><a href="/CounselorReport">Report</a></li>
+              <li><a href="/CounselorManualReport">Manual Report</a></li>
+            </ul>
+          </li>
+          <li><a id="logout" class="getstarted scrollto" href="javascript:;">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+    </div>
+  </header><!-- End Header -->
+
+
+<main id="main">
+  <section class="report-section">
+    <h1 class="report-title">OFFICIAL STUDENT REPORT</h1> <!-- Added line -->
+    <!-- Display the relevant student information -->
+    <h1>Student Information</h1>
+    <p><strong>Student Name:</strong> <%= log.student_lname %> <%= log.student_fname %></p>
+    <p><strong>Student Email:</strong> <%= log.student_email %></p>
+    <h1>Session Information</h1>
+    <p><strong>Session Name:</strong> <%= log.session %></p>
+    <p><strong>Date Encoded:</strong> <%= log.date_encoded %> <%= log.time_encoded %></p>
+
+    <h1>Program Information</h1>
+    <p><strong>ProgCode:</strong> <%= log.progcode %></p>
+    <p><strong>Service Type:</strong> <%= log.service %></p>
+
+    <h1>Category Information</h1>
+    <p><strong>Category Type:</strong> <%= log.category %></p>
+    <p><strong>Nature of Concern:</strong> <%= log.concern %></p>
+
+    <h1>Counseling Information</h1>
+    <p><strong>Counseling Client:</strong> <%= log.client %></p>
+
+    <h1>Additional Session Details</h1>
+    <p><strong>Time Encoded:</strong> <%= log.time_encoded %></p>
+    <p><strong>Notes:</strong> <%= log.notes %></p>
+    <div class="mt-4">
+      <button id="printBtn" class="btn btn-primary ml-2">Print</button>
+    </div>
+  </section>
+</main>
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Student Wellness Center</h3>
+      <p>Create possibilities with DLSU-D.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bx bxl-facebook"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Alvaran, Dimaya, Manalo</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/home-page.js"></script>
+  <script src="/js/CounselorViewReport.js"></script>
+  <script src="/js/counselorLog.js"></script>
+  <script src="/js/spinner.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+
+  <style>
+    .hidden-row {
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out; /* Smooth transition */
+  max-height: 0;
+}
+
+.hidden-row.open {
+  display: table-row;
+  max-height: 200px; /* Set max-height based on the content size */
+}
+
+.arrow-icon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000; /* Change color as needed */
+  margin-right: 5px;
+  transition: transform 0.3s ease-out; /* Smooth transition for arrow rotation */
+}
+
+.open .arrow-icon {
+  transform: rotate(180deg); /* Rotate arrow when row is open */
+}
+.report-title {
+    font-family: 'Arial', sans-serif; /* Change to your preferred font family */
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+.report-section {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px 0;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .report-section:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .report-section h1 {
+    color: #2b8c4b;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .report-section p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .report-section hr {
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+  }
+
+  .additional-info {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .hidden-row {
+    display: none;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    max-height: 0;
+  }
+
+  .hidden-row.open {
+    display: table-row;
+    max-height: 200px;
+  }
+
+  .arrow-icon {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000;
+    margin-right: 5px;
+    transition: transform 0.3s ease-out;
+  }
+
+  .open .arrow-icon {
+    transform: rotate(180deg);
+  }
+
+.additional-info {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1; /* This makes the main content take up the remaining vertical space */
+    }
+
+    /* If needed, adjust the footer styles below */
+    #footer {
+      padding: 30px 0;
+      text-align: center;
+      width: 100%;
+    }
+  </style>
+  <div class="loader"></div>
+</body>
+</html>

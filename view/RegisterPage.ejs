@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Now</title>
+    <link rel="stylesheet" href="/css/register-style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Favicons -->
+  <link href="/img/dlsud-logo.png" rel="icon">
+</head>
+<body>
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration">
+                <div class="card-body p-4 p-md-5">
+                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Registration Form</h3>
+                  <form id="insertForm" action="/register" method="post">
+                    <div class="row mb-4">
+                      <div class="col-md-6">
+                        <div class="form-outline">
+                          <input type="text" id="firstName" name="firstName" class="form-control form-control-lg"required />
+                          <label class="form-label" for="firstName">First Name</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-outline">
+                          <input type="text" id="lastName" name="lastName" class="form-control form-control-lg" required />
+                          <label class="form-label" for="lastName">Last Name</label>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="row">
+                      <div class="col-md-6 mb-4 d-flex align-items-center">
+      
+                        <div class="form-outline datepicker w-100">
+                          <input type="date" class="form-control form-control-lg" id="birthdayDate" name="birthDate" required/>
+                          <label for="birthdayDate" class="form-label">Birthday</label>
+                        </div>
+      
+                      </div>
+                      <div class="col-md-6 mb-4">
+      
+                        <h6 class="mb-2 pb-1">Gender: </h6>
+      
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" id="femaleGender"
+                            value="Female" checked />
+                          <label class="form-check-label" for="femaleGender">Female</label>
+                        </div>
+      
+                        <div class="form-check form-check-inline" >
+                          <input class="form-check-input" type="radio" name="gender" id="maleGender"
+                            value="Male" />
+                          <label class="form-check-label" for="maleGender">Male</label>
+                        </div>    
+                      </div>
+                    </div>
+      
+                    <div class="row">
+                      <div class="col-md-6 mb-4 pb-2">
+      
+                        <div class="form-outline">
+                          <input type="email" name="email" id="email" class="form-control form-control-lg" required/>
+                          <label class="form-label" for="email">Email</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4 pb-2">
+      
+                        <div class="form-outline">
+                          <input type="password" id="password"name="password" class="form-control form-control-lg" required/>
+                          <label class="form-label" for="password">Password</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-4 pb-2">
+      
+                        <div class="form-outline">
+                          <input type="text" id="IDnumber" name="idNumber" class="form-control form-control-lg" required/>
+                          <label class="form-label" for="IDnumber">ID Number</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4 pb-2">
+                        <div class="form-outline">
+                          <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control form-control-lg" required value="+63" />
+                          <label class="form-label" for="phoneNumber">Phone</label>
+                        </div>
+                      </div>
+                    </div>
+                    
+      
+                    <div class="row">
+                      <div class="col-12">
+      
+                        <select id="accountType" name="accountType" class="select form-control-lg" required>
+                          <option value="1" disabled>Choose option</option>
+                          <option value="Student" selected>Student</option>
+                          <option value="Counselor">Counselor</option>
+                        </select>
+                        <label class="form-label select-label"for="accountType">Choose option</label>
+
+                      </div>
+                    </div>
+                    <!-- Dropdown for Student -->
+<div id="departmentDropdown" style="display: none;" class="mb-4">
+    <label for="departmentSelect" class="form-label">Select Department</label>
+  <select id="departmentSelect"  class="form-select form-select-lg" required>
+    <option value="" disabled>Select Department</option>
+    <option value="CSCS">CSCS</option>
+    <option value="CEAT">CEAT</option>
+    <option value="CTHM">CTHM</option>
+    <option value="CLAC">CLAC</option>
+    <option value="COED">COED</option>
+    <option value="CCJE">CCJE</option>
+    <option value="CBAA">CBAA</option>
+  </select>
+</div>
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="form-outline">
+      <input type="text" id="programCode" name="programCode" class="form-control form-control-lg" />
+      <label class="form-label" for="programCode">Program Code</label>
+    </div>
+  </div>
+</div>
+                    <div class="mt-4 pt-2 text-center">
+                      <button type="button" class="btn btn-outline-success" id="createAccountButton">Create Account</button>
+                      <a href="/">Return to Login</a>
+                    </div>
+                      
+<!-- Button trigger modal -->
+<div class="mt-4 pt-2 text-center">
+<button type="button" class="btn btn-primary terms-modal" data-toggle="modal" data-target="#termsModal">
+  Terms of Use
+</button></div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsModalLabel">Terms And Condition</h5>
+
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" id="closeTermsModalX1" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2><strong>Welcome to SWC Web App</strong></h2>
+
+        <p>These Terms of Use govern your use of DLSUD-SWC.vercel.app (the "Web Application"), operated by the research group consisting of Alvaran, Dimaya, and Manalo (referred to as "we," "us," or "our"). By accessing or using the Web Application, you agree to comply with and be bound by these Terms of Use. If you do not agree with these terms, please do not use the Web Application.</p>
+        
+        <h3><strong>User Registration and Personal Information</strong></h3>
+        
+        <p><strong>1. User Registration:</strong><br>
+           - To access certain features of the Web Application, you may be required to register and provide personal information.<br>
+           - By registering, you agree to provide accurate, current, and complete information during the registration process.</p>
+        
+        <p><strong>2. Collected Information:</strong><br>
+           - During the registration process, we collect personal information, including but not limited to:<br>
+             - Name<br>
+             - DLSU-D email<br>
+             - Phone number<br>
+             - Gender<br>
+             - College department<br>
+             - College program<br>
+             - Birthday<br>
+             - ID number<br>
+             - Password</p>
+        
+        <p><strong>3. Use of Personal Information:</strong><br>
+           - We use the collected personal information to provide you with access to the Web Application and its features.</p>
+        
+        <h3><strong>Data Security and Privacy</strong></h3>
+        
+        <p><strong>4. Cookies:</strong><br>
+           - We employ the use of cookies. By accessing DLSU-D SWC Web Application, you agreed to use cookies in agreement with the Tagumpay Group's Privacy Policy.<br>
+           - Most interactive websites use cookies to let us retrieve the user's details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.</p>
+        
+        <p><strong>5. Third-Party Access:</strong><br>
+           - We do not share your personal information with third-party applications without your explicit consent.</p>
+        
+        <p><strong>6. Database Access:</strong><br>
+           - Access to the user database is restricted to authorized personnel only.</p>
+        
+        <h3><strong>User Responsibilities</strong></h3>
+        
+        <p><strong>7. Account Security:</strong><br>
+           - You are responsible for maintaining the confidentiality of your account information, including your password.<br>
+           - Notify us immediately of any unauthorized use of your account or any other breach of security.</p>
+        
+        <p><strong>8. Compliance:</strong><br>
+           - Users must comply with all applicable laws and regulations while using the Web Application.</p>
+        
+        <h3><strong>Termination</strong></h3>
+        
+        <p><strong>9. Termination of Access:</strong><br>
+           - We reserve the right to terminate or suspend your access to the Web Application at our discretion, without notice, for any reason.</p>
+        
+        <h3><strong>Changes to Terms</strong></h3>
+        
+        <p><strong>10. Modifications:</strong><br>
+           - We reserve the right to modify or revise these Terms of Use at any time. Continued use of the Web Application after any such changes constitutes your acceptance of the new terms.</p>
+        
+        <h3><strong>Contact Information</strong></h3>
+        
+        <p>If you have any questions or concerns regarding these Terms of Use, please contact us at stephamanalo@gmail.com.</p>
+        
+        <p>Last Updated: 28/11/2023</p>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="close close-modal-btn" data-dismiss="modal" aria-label="Close" id="closeTermsBtn1">Close
+        </button>
+    </div>
+  </div>
+</div>
+</div>
+
+                    </form>
+                    <div class="alert alert-success fade show mt-4" id="successMessage" style="display: none;" role="alert">
+                      <h4 class="alert-heading">Registration Successful!</h4>
+                      <p>Check your email to confirm. You've successfully signed up. Please check your email to confirm your account before signing in to the SWC Appointment Scheduling.</p>
+                      <p><a href="/">Go back to login</a></p>   
+                    </div>      
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>         
+        </section>  
+       <!-- Add these lines to include Bootstrap and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+        <script src="/js/register.js"></script>
+        
+      </body>
+</html>

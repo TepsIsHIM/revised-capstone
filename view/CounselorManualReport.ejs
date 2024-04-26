@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Manual Report</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/dlsud-logo.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/student-homepage-style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <% if (!counselorData) { %>   <script>window.location.href = "/";</script><% } %>
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-person"></i>Welcome Counselor <%= counselorData.last_name %> <%= counselorData.first_name %>
+      </div>
+      <!-- <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope-fill"></i><a href="mailto:contact@example.com">info@example.com</a>
+        <i class="bi bi-phone-fill phone-icon"></i> +1 5589 55488 55
+      </div> -->
+      <div class="social-links d-none d-md-block">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <div class="shadow p-3 mb-5 bg-body rounded">
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="/CounselorHomePage">DLSU-D Student Wellness Center</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorProfilePage">Account Details</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Appointments</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorPendingAppointmentPage">Pending Appointments</a></li>
+              <li><a href="/CounselorAppointmentHistoryPage">Appointment History</a></li>
+              <li><a href="/CounselorAcceptedAppointmentPage">Accepted Appointments</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Documentation</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CounselorLogs">Logs</a></li>
+              <li><a href="/CounselorReport">Report</a></li>
+              <li><a href="/CounselorManualReport">Manual Report</a></li>
+            </ul>
+          </li>
+          <li><a class="getstarted scrollto" href="/">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </div>
+  </header><!-- End Header -->
+
+  <main>
+    <div class="container">
+      <h1>Report</h1>
+      <form>
+        <div class="mb-3">
+          <label for="fname" class="form-label">First Name:</label>
+          <input type="text" class="form-control" id="fname" name="fname">
+        </div>
+        <div class="mb-3">
+          <label for="lname" class="form-label">Last Name:</label>
+          <input type="text" class="form-control" id="lname" name="lname">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="text" class="form-control" id="email" name="email" oninput="suggestEmails()">
+      </div>
+      <div id="emailSuggestions"></div>
+        <div class="mb-3">
+          <label for="progcode" class="form-label">Progcode:</label>
+          <input type="text" class="form-control" id="progcode" name="progcode">
+        </div>
+        <div class="mb-3">
+            <label for="department" class="form-label">Department:</label>
+            <input type="text" class="form-control" id="department" name="department">
+          </div>
+        <div class="mb-3">
+          <label for="serviceSelect3" class="form-label">Type Of Service</label>
+          <select class="form-select" id="serviceSelect3">
+            <option value="" disabled>Select Type Of Service</option>
+            <option value="COUNSELING">COUNSELING</option>
+            <option value="CONSULTATION">CONSULTATION</option>
+            <option value="INTERVIEW">INTERVIEW</option>
+            <option value="TESTING">TESTING</option>
+            <option value="OTHERS">OTHERS</option>
+          </select>
+          
+        </div>
+      <!-- Consultation Section -->
+      <div class="mb-3 consultation-section">
+        <label for="consultSelect2" class="form-label">Type of Consultation:</label>
+        <select class="form-select" id="consultSelect2" name="consultSelect2">
+          
+            <option value="CAREER/OCCUPATIONAL">CAREER/OCCUPATIONAL</option>
+            <option value="EDUCATIONAL">EDUCATIONAL</option>
+            <option value="PERSONAL/SOCIAL">PERSONAL/SOCIAL</option>
+        </select>
+        <label for="dateInput2" class="form-label">Date of Appointment:</label>
+      <input type="date" class="form-control" id="dateInput2" name="dateInput2">
+        <label for="hoursInput2" class="form-label">Time used Hours:</label>
+        <input type="number" class="form-control" id="hoursInput2" name="hoursInput2" min="0">
+        <label for="minutesInput2" class="form-label">Time used Minutes:</label>
+        <input type="number" class="form-control" id="minutesInput2" name="minutesInput2" min="0" max="59">
+        <label for="noteTextarea2" class="form-label">Note:</label>
+        <textarea class="form-control" id="noteTextarea2" name="noteTextarea2" rows="3"></textarea>
+        <button type="submit" class="btn btn-primary"onclick="submitConsultation()">Submit Consultation</button>
+        <button type="button" class="btn btn-secondary" onclick="clearConsultationFields()">Clear Consultation</button>
+      </div>
+
+      <!-- Counseling Section -->
+      <div class="mb-3 counseling-section">
+        <label for="concernSelect1" class="form-label">Name of Concern:</label>
+        <select class="form-select" id="concernSelect1" name="concernSelect1">
+            <option value="ACADEMIC">ACADEMIC</option>
+              <option value="ADJUSTMENT">ADJUSTMENT</option>
+              <option value="BEHAVIOR">BEHAVIOR</option>
+              <option value="CAREER">CAREER</option>
+              <option value="COGNITIVE">COGNITIVE</option>
+              <option value="DISCIPLINE">DISCIPLINE</option>
+              <option value="ECONOMIC">ECONOMIC</option>
+              <option value="EMERGENCY/CRITICAL CASES">EMERGENCY/CRITICAL CASES</option>
+              <option value="EMOTIONAL">EMOTIONAL</option>
+              <option value="PHYSICAL HEALTH/ORGANIC/MEDICAL">PHYSICAL HEALTH/ORGANIC/MEDICAL</option>
+              <option value="RELATIONAL/INTERPERSONAL">RELATIONAL/INTERPERSONAL</option>
+              <option value="SCHOOL">SCHOOL</option>
+              <option value="SEXUALITY">SEXUALITY</option>
+              <option value="SOCIAL/POLITICAL/IDEOLOGICAL">SOCIAL/POLITICAL/IDEOLOGICAL</option>
+              <option value="SPRICITUAL/RELIGIOUS/TRANSPERSONAL">SPRICITUAL/RELIGIOUS/TRANSPERSONAL</option>
+        </select>
+        <label for="clientSelect1" class="form-label">Type of Client:</label>
+        <select class="form-select" id="clientSelect1" name="clientSelect1">
+            <option value="REFERRED">REFERRED</option>
+              <option value="NONE">NONE</option>
+        </select>
+        <label for="sessionSelect1" class="form-label">Type of Session:</label>
+        <select class="form-select" id="sessionSelect1" name="sessionSelect1">
+            <option value="ONGOING">ONGOING</option>
+            <option value="FOLLOW-UP">FOLLOW-UP</option>
+        </select>
+        <label for="dateInput1" class="form-label">Date of Appointment:</label>
+      <input type="date" class="form-control" id="dateInput1" name="dateInput1">
+        <label for="hoursInput1" class="form-label">Time used Hours:</label>
+        <input type="number" class="form-control" id="hoursInput1" name="hoursInput1" min="0">
+        <label for="minutesInput1" class="form-label">Time used Minutes:</label>
+        <input type="number" class="form-control" id="minutesInput1" name="minutesInput1" min="0" max="59">
+        <label for="noteTextarea1" class="form-label">Note:</label>
+        <textarea class="form-control" id="noteTextarea1" name="noteTextarea1" rows="3"></textarea>
+        <button type="submit" class="btn btn-primary"onclick="submitCounseling()">Submit Counseling</button>
+        <button type="button" class="btn btn-secondary" onclick="clearCounselingFields()">Clear Counseling</button>
+      </div>
+
+      <!-- Interview Section -->
+      <div class="mb-3 interview-section">
+        <label for="concernSelect3" class="form-label">Name of Concern:</label>
+        <select class="form-select" id="concernSelect3" name="concernSelect3">
+          <option value="INITIAL">ACADEMIC</option>
+              <option value="ROUTINE">ADJUSTMENT</option>
+              <option value="EXIT">BEHAVIOR</option>
+        </select>
+        <label for="dateInput3" class="form-label">Date of Appointment:</label>
+      <input type="date" class="form-control" id="dateInput3" name="dateInput3">
+        <label for="hoursInput3" class="form-label">Time used Hours:</label>
+        <input type="number" class="form-control" id="hoursInput3" name="hoursInput3" min="0">
+        <label for="minutesInput3" class="form-label">Time used Minutes:</label>
+        <input type="number" class="form-control" id="minutesInput3" name="minutesInput3" min="0" max="59">
+        <label for="noteTextarea3" class="form-label">Note:</label>
+        <textarea class="form-control" id="noteTextarea3" name="noteTextarea3" rows="3"></textarea>
+        <button type="submit" class="btn btn-primary"onclick="submitInterview()">Submit Interview</button>
+        <button type="button" class="btn btn-secondary" onclick="clearInterviewFields()">Clear Interview</button>
+      </div>
+
+      <!-- Testing Section -->
+      <div class="mb-3 testing-section">
+        <label for="categType4" class="form-label">Type of Test:</label>
+        <select class="form-select" id="categType4" name="categType4">
+          <option value="INTELLIGENCE TESTS">INTELLIGENCE TESTS</option>
+          <option value="PERSONALITY TESTS">PERSONALITY TESTS</option>
+          <option value="ACHIEVEMENT TESTS">ACHIEVEMENT TESTS</option>
+          <option value="APTITUDE TESTS">APTITUDE TESTS</option>
+          <option value="NEUROPSYCHOLOGICAL TESTS">NEUROPSYCHOLOGICAL TESTS</option>
+          <option value="VOCATIONAL TESTS">VOCATIONAL TESTS</option>
+        </select>
+        <label for="concernSelect4" class="form-label">Purpose of Test:</label>
+        <input class="form-control" id="concernSelect4" name="concernSelect4">
+        <label for="dateInput4" class="form-label">Date of Appointment:</label>
+      <input type="date" class="form-control" id="dateInput4" name="dateInput4">
+        <label for="hoursInput4" class="form-label">Time used Hours:</label>
+        <input type="number" class="form-control" id="hoursInput4" name="hoursInput4" min="0">
+        <label for="minutesInput4" class="form-label">Time used Minutes:</label>
+        <input type="number" class="form-control" id="minutesInput4" name="minutesInput4" min="0" max="59">
+        <label for="noteTextarea4" class="form-label">Note:</label>
+        <textarea class="form-control" id="noteTextarea4" name="noteTextarea4" rows="3"></textarea>
+        <button type="submit" class="btn btn-primary"onclick="submitTesting()">Submit Testing</button>
+        <button type="button" class="btn btn-secondary" onclick="clearTestingFields()">Clear Testing</button>
+      </div>
+
+      <!-- Others Section -->
+      <div class="mb-3 others-section">
+        <label for="concernSelect5" class="form-label">Other Concern:</label>
+        <select class="form-select" id="concernSelect5" name="concernSelect5">
+          <option value="HOMEVISIT">HOMEVISIT</option>
+              <option value="HOSPITALVISIT">HOSPITALVISIT</option>
+              <option value="FUNERALVISIT">FUNERALVISIT</option>
+              <option value="SMALL GROUP SESSION">SMALL GROUP SESSION</option>
+              <option value="WORKSHOP/SEMINAR">WORKSHOP/SEMINAR</option>
+              <option value="CONFERENCE(PARENT-COUNSELOR)">CONFERENCE(PARENT-COUNSELOR)</option>
+              <option value="CONFERENCE(FACULTY-COUNSELOR)">CONFERENCE(FACULTY-COUNSELOR)</option>
+              <option value="CONFERENCE(ADMIN-COUNSELOR)">CONFERENCE(ADMIN-COUNSELOR)</option>
+              <option value="CONFERENCE(STAFF-COUNSELOR)">CONFERENCE(STAFF-COUNSELOR)</option>
+              <option value="CONFERENCE(COUNSELOR-COUNSELOR)">CONFERENCE(COUNSELOR-COUNSELOR)</option>
+              <option value="CONFERENCE(COUNSELOR-PEER COUNSELOR)">CONFERENCE(COUNSELOR-PEER COUNSELOR)</option>
+              <option value="OTHER">OTHER</option>
+        </select>
+        <label for="clientSelect5" class="form-label">Type of Client:</label>
+        <select class="form-select" id="clientSelect5" name="clientSelect5">
+          <option value="REFERRED">REFERRED</option>
+              <option value="NONE">NONE</option>
+        </select>
+        <label for="dateInput5" class="form-label">Date of Appointment:</label>
+      <input type="date" class="form-control" id="dateInput5" name="dateInput5">
+        <label for="hoursInput5" class="form-label">Time used Hours:</label>
+        <input type="number" class="form-control" id="hoursInput5" name="hoursInput5" min="0">
+        <label for="minutesInput5" class="form-label">Time used Minutes:</label>
+        <input type="number" class="form-control" id="minutesInput5" name="minutesInput5" min="0" max="59">
+        <label for="noteTextarea5" class="form-label">Note:</label>
+        <textarea class="form-control" id="noteTextarea5" name="noteTextarea5" rows="3"></textarea>
+        <button type="submit" class="btn btn-primary"onclick="submitOthers()">Submit Others</button>
+        <button type="button" class="btn btn-secondary" onclick="clearOthersFields()">Clear Others</button>
+      </div>
+    </form>
+  </div>
+</main>
+  
+  
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Student Wellness Center</h3>
+      <p>Create possibilities with DLSU-D.</p>
+      <div class="social-links">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>De La Salle</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Template Main JS File -->
+  <script src="/js/home-page.js"></script>
+  <script src="/js/report.js"></script>
+  <script src="/js/consultation.js"></script>
+  <script src="/js/counseling.js"></script>
+  <script src="/js/interview.js"></script>
+  <script src="/js/testing.js"></script>
+  <script src="/js/others.js"></script>
+
+
+
+  <style>
+      /* CSS for the suggestion items */
+      .suggestion-item {
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    /* Highlight effect on hover */
+    .suggestion-item:hover {
+        background-color: #f0f0f0; /* Change the background color as per your design */
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1; /* This makes the main content take up the remaining vertical space */
+    }
+
+    /* If needed, adjust the footer styles below */
+    #footer {
+      padding: 30px 0;
+      text-align: center;
+      width: 100%;
+    }
+  </style>
+</body>
+</html>

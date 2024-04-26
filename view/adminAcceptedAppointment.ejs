@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>DLSU-D SWC</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/dlsud-logo.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/student-homepage-style.css" rel="stylesheet">
+
+  <script src="/js/logout.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <% if (!counselorData) { %>   <script>window.location.href = "/";</script><% } %>
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-person"></i>Welcome admin <%= counselorData.last_name %> <%= counselorData.first_name %>
+      </div>
+      <div class="social-links d-none d-md-block">
+        <% if (counselorData.admin) { %>
+          <a href="/CounselorHomePage" id="admin-link">Counselor Page</a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="/adminHomepage">DLSU-D Student Wellness Center</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="#"><span>Manage Accounts</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/adminViewAccounts">View Accounts</a></li>
+              <li><a href="/adminCreateAccounts">Create Accounts</a></li>
+              <li><a href="/adminEditRoles">Edit Roles</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Manage Appointment</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/adminPendingAppointment">Pending Appointments</a></li>
+              <li><a href="/adminAcceptedAppointment">Accepted Appointments</a></li>
+              <li><a href="/adminAppointmentHistory">Appoinment History</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Documentation</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/adminCounselorLog">Counselor Logs</a></li>
+              <li><a href="/adminStatisticsForm">Statistic Report</a></li>
+            </ul>
+          </li>
+          <li><a id="logout" class="getstarted scrollto" href="javascript:;">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+  <div class="section-title">
+    <h2>Accepted Appointments</h2>
+  </div>
+  <main id="main">
+    <div class="table-responsive">
+      <table class="table border border-2 table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+            <th scope="col">Student Email</th>
+            <th scope="col">Student</th>
+            <th scope="col">Department</th>
+            <th scope="col">Counselor</th>
+            <th scope="col">Appointed Time</th>
+            <th scope="col">Appointed Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% acceptedAppointment.forEach((appointment) => { %>
+            <tr>
+              <td><%= appointment.time %></td>
+              <td><%= appointment.date %></td>
+              <td><%= appointment.email %></td>
+              <td><%= appointment.last_name %> <%= appointment.first_name %></td>
+              <td><%= appointment.department %></td>
+              <td><%= appointment.counselor_Lname %> <%= appointment.counselor_Fname %></td>
+              <td><%= appointment.appointed_time %></td>
+              <td><%= appointment.appointed_date %></td>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Student Wellness Center</h3>
+      <p>Create possibilities with DLSU-D.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bx bxl-facebook"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Alvaran, Dimaya, Manalo</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="/js/adminCreateAccount"></script>
+  <script src="/js/home-page.js"></script>
+
+  <style>
+  .table-responsive {
+    max-width: 80%; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the table */
+}
+
+.table {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  margin-right: 5px; /* Adjust the spacing as needed */
+}
+/* a */
+  table {
+    margin: 0 auto;
+  }
+  
+  section {
+    padding: 60px 0;
+  }
+  
+  .section-bg {
+    background-color: #f8fcf9;
+  }
+  
+  .section-title {
+    text-align: center;
+    padding-bottom: 30px;
+  }
+  
+  .section-title h2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  
+  .section-title h2::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #ddd;
+    bottom: 1px;
+    left: calc(50% - 60px);
+  }
+  
+  .section-title h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #5cb874;
+    bottom: 0;
+    left: calc(50% - 20px);
+  }
+  
+  .section-title p {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #919191;
+  }
+</style>
+</body>
+
+</html>

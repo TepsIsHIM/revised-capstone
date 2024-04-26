@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>DLSU-D SWC</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/dlsud-logo.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.css" rel="stylesheet">
+
+  <!-- Table CSS -->
+  <link href="/css/student-homepage-style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/tableAppointment.css" rel="stylesheet">
+
+  <script src="/js/logout.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <% if (!counselorData) { %>   <script>window.location.href = "/";</script><% } %>
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-person"></i>Welcome admin <%= counselorData.last_name %> <%= counselorData.first_name %>
+      </div>
+      <div class="social-links d-none d-md-block">
+        <% if (counselorData.admin) { %>
+          <a href="/CounselorHomePage" id="admin-link">Counselor Page</a>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="/adminHomepage">DLSU-D Student Wellness Center</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="#"><span>Manage Accounts</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/adminViewAccounts">View Accounts</a></li>
+              <li><a href="/adminCreateAccounts">Create Accounts</a></li>
+              <li><a href="/adminEditRoles">Edit Roles</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Manage Appointment</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/adminPendingAppointment">Pending Appointments</a></li>
+              <li><a href="/adminAcceptedAppointment">Accepted Appointments</a></li>
+              <li><a href="/adminAppointmentHistory">Appoinment History</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Documentation</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/adminCounselorLog">Counselor Logs</a></li>
+              <li><a href="/adminStatisticsForm">Statistic Report</a></li>
+            </ul>
+          </li>
+          <li><a id="logout" class="getstarted scrollto" href="javascript:;">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+
+
+  <main id="main">
+    <section id="counselorDetails">
+        <div class="container">
+            <h2 class="text-center mb-5">Counselor Details</h2>
+            <div class="row">
+                <% counselors.forEach(counselor => { %>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 border-primary counselor-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary"><%= counselor.name %></h5>
+                                <p class="card-text email"><strong>Email:</strong> <%= counselor.email %></p>
+                                <p class="card-text"><strong>Department:</strong> <%= counselor.departments.join(', ') %></p>
+                                <p class="card-text"><strong>Program:</strong> <%= counselor.programs.join(', ') %></p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <button class="btn btn-primary btn-block btn-edit-user" data-toggle="modal" data-target="#editModal">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+                <button type="button" class="close" id="modalCloseButtonX" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <!-- Add your form fields here -->
+                    <div class="form-group">
+                        <label for="adminSwitch">Admin:</label>
+                        <input type="checkbox" id="adminSwitch" class="form-control" data-toggle="switch" data-on-text="On" data-off-text="Off">
+                    </div>
+                    <div class="form-group">
+                        <label>Department:</label>
+                        <div>
+                          <label><input type="checkbox" name="department" value="CSCS"> CSCS</label><br>
+                          <label><input type="checkbox" name="department" value="CEAT"> CEAT</label><br>
+                          <label><input type="checkbox" name="department" value="CBAA"> CBAA</label><br>
+                          <label><input type="checkbox" name="department" value="CTHM"> CTHM</label><br>
+                          <label><input type="checkbox" name="department" value="CCJE"> CCJE</label><br>
+                          <label><input type="checkbox" name="department" value="COED"> COED</label><br>
+                          <label><input type="checkbox" name="department" value="CLAC"> CLAC</label><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="programCode">Program Code:</label>
+                      <input type="text" id="programInput" name="programs" class="form-control" placeholder="Example: BIT, MEB, BCS">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close" id="modalCancelButton">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-confirm-update" id="confirmButton">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Student Wellness Center</h3>
+      <p>Create possibilities with DLSU-D.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bx bxl-facebook"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Alvaran, Dimaya, Manalo</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+<!-- Include Bootstrap CSS and JS in your HTML file -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/home-page.js"></script>
+  <script src="/js/editRole.js"></script>
+
+</body>
+
+</html>

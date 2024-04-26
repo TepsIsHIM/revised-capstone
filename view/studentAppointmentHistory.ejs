@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Appointment History</title>
+  <script src="inactivity.js"></script>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/dlsud-logo.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/animate.css/animate.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/student-homepage-style.css" rel="stylesheet">
+  <link href="/css/student-appointmentstatus-style.css" rel="stylesheet">
+  <link href="/css/spinner.css" rel="stylesheet">
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS (optional but required for modal functionality) -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
+  <!-- Include MDB JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/mdb-ui-kit@3.10.0/dist/js/mdb.min.js"></script>
+           <!-- rating.js file -->
+  <script src="/js/rating.js"></script>
+
+  <script src="/js/logout.js" defer></script>
+
+</head>
+
+<body>
+   <!-- ======= Top Bar ======= -->
+   <% if (!studentData) { %>   <script>window.location.href = "/";</script><% } %>
+   <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-person"></i> Welcome, <%= studentData.last_name %> <%= studentData.first_name %>
+      </div>
+      <div class="social-links d-none d-md-block">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bi bi-facebook"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <div class="shadow p-3 mb-5 bg-body rounded">
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo me-auto"><a href="/StudentHomepage">DLSU-D Student Wellness Center</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/studentProfilePage">Account Details</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Schedule Appointment</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/CreateAppointmentPage">Set an Appointment</a></li>
+              <li><a href="/studentReschedules">Pending Reschedule</a></li>
+              <li><a href="/CounselorList">List of Counselors</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Appointment Details</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+                <li><a href="/studentAppointmentStatus">Appointment Status</a></li>
+                <li><a href="/studentReschedules">Pending Reschedule</a></li>
+                <li><a href="/studentAppointmentHistory">Appointment History</a></li>
+              </ul>
+          </li>
+          <li><a id="logout" class="getstarted scrollto" href="javascript:;">Logout</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </div>
+  </header><!-- End Header -->
+  <main id="main">
+    <div class="table-responsive">
+      <table class="table border border-2 table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Date</th>
+            <th scope="col">Counselor Email</th>
+            <th scope="col">Counselor</th>
+            <th scope="col">Appointed Time</th>
+            <th scope="col">Appointed Date</th>
+            <th scope="col">Program Status</th>
+            <th scope="col">Feedback</th> <!-- Added Feedback column header -->
+          </tr>
+        </thead>
+        <tbody>
+          <% appointmentHistory.forEach((appointment) => { %>
+          <tr>
+            <td><%= appointment.time %></td>
+            <td><%= appointment.date %></td>
+            <td><%= appointment.counselor_email %></td>
+            <td><%= appointment.counselor_Lname %> <%= appointment.counselor_Fname %></td>
+            <td><%= appointment.appointed_time %></td>
+            <td><%= appointment.appointed_date %></td>
+            <td><%= appointment.prog_status %></td>
+            <td>
+
+            <!-- "Rate" button triggering modal -->
+<% if (appointment.prog_status !== 'REJECTED' && appointment.prog_status !== 'CANCELLED') { %>
+  <button type="button" class="btn btn-warning feedback" data-bs-toggle="modal" data-bs-target="#exampleModal" data-appointment-id="<%= appointment.id %>">
+    Rate 
+  </button>
+<% } %>
+
+<!-- Modal -->
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Feedback for Counselor <%= appointment.counselor_Lname %> <%= appointment.counselor_Fname %></h5>
+        <button type="button" class="close" data-bs-dismiss="modal"id="closeModalX2" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <!-- Rating radio buttons from 1 to 5 with captions -->
+      <div class="container">
+        <form class="row g-3">
+          <div class="mb-3 col-12">
+            <label for="rating" class="form-label">Rate the Counselor:</label>
+          </div>
+          <div class="col-12">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rating" id="rating1" value="Very Dissatisfied">
+              <label class="form-check-label" for="rating1">Very Dissatisfied</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rating" id="rating2" value="Dissatisfied">
+              <label class="form-check-label" for="rating2">Dissatisfied</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rating" id="rating3" value="Neutral">
+              <label class="form-check-label" for="rating3">Neutral</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rating" id="rating4" value="Satisfied">
+              <label class="form-check-label" for="rating4">Satisfied</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="rating" id="rating5" value="Very Satisfied">
+              <label class="form-check-label" for="rating5">Very Satisfied</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  id="closeModalBtn2" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary confirm-submit" id="submitFeedbackBtns">Submit Feedback</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+            </td>
+          </tr>
+          <% }); %>
+          <% ignoredAppointmentHistory.forEach((appointment) => { %>
+          <tr>
+                    <td><%= appointment.time %></td>
+                    <td><%= appointment.date %></td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td><%= appointment.appointed_time %></td>
+                    <td><%= appointment.appointed_date %></td>
+                    <td><%= appointment.prog_status %></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Student Wellness Center</h3>
+      <p>Create possibilities with DLSU-D.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/dlsudswc/" class="facebook"><i class="bx bxl-facebook"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; Copyright <strong><span>Alvaran, Dimaya, Manalo</span></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
+
+  <!-- Add these lines to include Bootstrap and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/js/home-page.js"></script>
+  <script src="/js/spinner.js"></script>
+  <script src="/js/feedback.js"></script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1; /* This makes the main content take up the remaining vertical space */
+    }
+
+    /* If needed, adjust the footer styles below */
+    #footer {
+      padding: 30px 0;
+      text-align: center;
+      width: 100%;
+    }
+  </style>
+  <div class="loader"></div>
+</body>
+</html>
